@@ -7,7 +7,9 @@ This file contains the routes for your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for
-
+from werkzeug.utils import secure_filename
+from .forms import PropertyForm
+from .models import Property
 
 ###
 # Routing for your application.
@@ -23,6 +25,49 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+
+
+#Create Properties Page - to add properties through property form
+@app.route('/properties/create', methods=['POST', 'GET'])
+def addproperty():
+    form = PropertyForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        bedrooms = form.bedrooms.data
+        bathrooms = form.bathrooms.data
+        location = form.location.data
+        price = form.price.data
+        property_type = form.property_type.data
+        description = form.description.data
+
+        photo = form.photo.data
+        filename = secure_filename(photo.filename)
+        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        photo.save(upload_path)
+
+        property_item = Property(
+            title=title,
+            description=description,
+            bedrooms=bedrooms,
+            bathrooms=bathrooms,
+            location=location,
+            price=price,
+            property_type=property_type,
+            photo=filename
+        )
+
+        db.session.add(property_item)
+        db.session.commit()
+
+        flash('Property added successfully.', 'success')
+        return redirect(url_for('properties'))
+
+    return render_template('addproperty.html', form=form)
+
+@app.route('/properties', methods=['GET'])
+    property_list = Property.query.all()
+    return render_template('properties.html', properties=property_list) 
 
 
 ###

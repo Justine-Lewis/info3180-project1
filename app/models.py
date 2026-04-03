@@ -1,0 +1,49 @@
+from . import db
+
+
+
+
+
+class Property(db.Model):
+    #class for property database table
+    #stores properties table name and fields
+    __tablename__ = 'properties'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    bedrooms = db.Column(db.Integer, nullable=False)
+    bathrooms = db.Column(db.Integer, nullable=False)
+    location = db.Column(db.String(255), nullable=False)
+    price = db.Column(db.String(100), nullable=False)
+    property_type = db.Column(db.String(50), nullable=False)
+    photo = db.Column(db.String(255), nullable=False)
+
+    #init method:
+    def __init__(self, title, description, bedrooms, bathrooms, location, price, property_type, photo):
+        self.title = title
+        self.description = description
+        self.bedrooms = bedrooms
+        self.bathrooms = bathrooms
+        self.location = location
+        self.price = price
+        self.property_type = property_type
+        self.photo = photo
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        try:
+            return unicode(self.id)  # python 2 support
+        except NameError:
+            return str(self.id)  # python 3 support
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
