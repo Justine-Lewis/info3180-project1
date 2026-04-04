@@ -3,8 +3,9 @@
 {% block main %}
 <div class="form-page">
     <h1 class="page-title">Add New Property</h1>
+{% include 'flash_messages.html' %}
 
-    <div class="property-form-wrapper">
+    <div class="form-card">
         <form method="POST" enctype="multipart/form-data" class="property-form">
             {{ form.hidden_tag() }}
 

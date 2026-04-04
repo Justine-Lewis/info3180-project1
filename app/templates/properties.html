@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="properties-page">
+    <h1 class="properties-title">Properties</h1>
+
+    <div class="properties-grid">
+        {% for property in properties %}
+        <div class="property-card">
+            <div class="property-image-wrapper">
+                <img src="{{ url_for('static', filename='uploads/' ~ property.photo) }}" alt="{{ property.title }}">
+            </div>
+
+            <div class="property-card-body">
+                <h3 class="property-card-title">{{ property.title }}</h3>
+
+                <p class="property-location">
+                    <span class="location-icon">◉</span>
+                    {{ property.location }}
+                </p>
+
+                <div class="property-price">${{ "{:,}".format(property.price|int) }}</div>
+            </div>
+
+            <div class="property-card-footer">
+                <a href="{{ url_for('property_view', propertyid=property.id) }}" class="view-property-btn">
+                    View Property
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
