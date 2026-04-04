@@ -8,13 +8,13 @@ from wtforms.validators import DataRequired, InputRequired, NumberRange
 #PropertyForm class, Accepts only jpg,jpeg,png files to be uploaded
 #Accepts all fields for property creation
 class PropertyForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    bedrooms = IntegerField('Bedrooms', validators=[DataRequired()])
-    bathrooms = IntegerField('Bathrooms', validators=[DataRequired()])
+    title = StringField('Property Title', validators=[DataRequired()])
+    bedrooms = IntegerField('No. of Bedrooms', validators=[DataRequired()])
+    bathrooms = IntegerField('No. of Bathrooms', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     price = StringField('Price', validators=[DataRequired()])
     property_type = SelectField(
-        'Type',
+        'Property Type',
         choices=[('House', 'House'), ('Apartment', 'Apartment')],
         validators=[DataRequired()]
     )
@@ -23,7 +23,7 @@ class PropertyForm(FlaskForm):
         'Photo',
         validators=[
             FileRequired(),
-            FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')
+            FileAllowed(['jpg', 'jpeg', 'png'], 'Browse For Photos!')
         ]
     )
     submit = SubmitField('Add Property')

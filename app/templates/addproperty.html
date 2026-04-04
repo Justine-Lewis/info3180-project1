@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="form-page">
+    <h1 class="page-title">Add New Property</h1>
+
+    <div class="property-form-wrapper">
+        <form method="POST" enctype="multipart/form-data" class="property-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group full-width">
+                {{ form.title.label }}
+                {{ form.title(class="form-control") }}
+            </div>
+
+            <div class="form-group full-width">
+                {{ form.description.label }}
+                {{ form.description(class="form-control form-textarea") }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form.bedrooms.label }}
+                    {{ form.bedrooms(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.bathrooms.label }}
+                    {{ form.bathrooms(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form.price.label }}
+                    {{ form.price(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.property_type.label }}
+                    {{ form.property_type(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-group location-field">
+                {{ form.location.label }}
+                {{ form.location(class="form-control") }}
+            </div>
+
+            <div class="form-group photo-field">
+                {{ form.photo.label }}
+                {{ form.photo(class="form-control-file") }}
+            </div>
+
+            <div class="form-group submit-group">
+                {{ form.submit(class="btn-submit") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
