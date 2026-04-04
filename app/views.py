@@ -66,8 +66,14 @@ def addproperty():
     return render_template('addproperty.html', form=form)
 
 @app.route('/properties', methods=['GET'])
+def properties():
     property_list = Property.query.all()
     return render_template('properties.html', properties=property_list) 
+
+@app.route('/properties/<propertyid>', methods=['GET'])
+def property_view(propertyid):
+    property_item = Property.query.get_or_404(propertyid)
+    return render_template('property_view.html', property=property_item)
 
 
 ###
